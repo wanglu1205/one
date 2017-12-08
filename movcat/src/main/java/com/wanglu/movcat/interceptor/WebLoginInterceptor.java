@@ -35,7 +35,7 @@ public class WebLoginInterceptor implements HandlerInterceptor {
     @Override  
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
   
-        log.info("---------------------开始进入请求地址拦截----------------------------");
+        log.info("------------------------开始进入请求地址拦截-------------------------");
 
         //通过IP实现网站浏览量统计分析 by wangl
         //1.获取用户真实IP
@@ -87,6 +87,6 @@ public class WebLoginInterceptor implements HandlerInterceptor {
 
     @Override  
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) throws Exception {
-        log.info("---------------视图渲染之后的操作-------------------------0");  
+        log.info("--------------------视图渲染之后的操作--------------------");
     }  
 }  
