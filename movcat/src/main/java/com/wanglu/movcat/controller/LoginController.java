@@ -85,7 +85,7 @@ public class LoginController {
         System.out.println(code);
 
         ValueOperations data = RedisTemplateUtil.setRedisTemplate(redisTemplate).opsForValue();
-        String key =  LocalConstant.IdentifyingCode + request.getSession().getId();
+        String key =  LocalConstant.IdentifyingCode + ":" + request.getSession().getId();
         IdentifyingCode identifyingCode = new IdentifyingCode(telOrEmail, code, DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
         String value = JSON.toJSONString(identifyingCode);
         data.set(key, value);
@@ -112,7 +112,7 @@ public class LoginController {
             return ResultUtil.error("请输入密码");
         }
         ValueOperations data = RedisTemplateUtil.setRedisTemplate(redisTemplate).opsForValue();
-        String key =  "IdentifyingCode:" + request.getSession().getId();
+        String key =  LocalConstant.IdentifyingCode + ":" + request.getSession().getId();
         IdentifyingCode identifyingCode = JSON.parseObject(String.valueOf(data.get(key)), IdentifyingCode.class);
         if (identifyingCode == null){
             return ResultUtil.error("验证码过期");

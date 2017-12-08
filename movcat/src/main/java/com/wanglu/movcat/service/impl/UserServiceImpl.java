@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService{
         if (AccountValidatorUtil.isMobile(user.getTel())){
             user.setEmail(null);
             u = userRepository.save(user);
-        }if (AccountValidatorUtil.isEmail(user.getEmail())){
+        }else if (AccountValidatorUtil.isEmail(user.getEmail())){
             user.setTel(null);
             u = userRepository.save(user);
         }

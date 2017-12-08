@@ -38,7 +38,7 @@
             $('[data-toggle="tooltip"]').tooltip();
         })
 
-        function changeqq() {
+        /*function changeqq() {
             $("#qq").attr("xlink:href", "#icon-qq");
 
         }
@@ -50,7 +50,7 @@
         }
         function resetwb() {
             $("#wb").attr("xlink:href", "#icon-weibo");
-        }
+        }*/
 
         function sendCode(obj) {
             var registertelvalue = $("#registertel").val();
@@ -63,8 +63,8 @@
                         settime(obj);
                     }
                 });
-
         }
+
 
         //发送验证码倒计时
         var countdown = 60;
@@ -118,8 +118,9 @@
                 var registertel = $("#registertel").val();
                 var registercode = $("#registercode").val();
                 var registerpassword = $("#registerpassword").val();
+                var registername = $("#name").val();
                 $.post("/register",
-                    {'telOrEmail':registertel, 'code':registercode, 'password':registerpassword},
+                    {'telOrEmail':registertel, 'name':registername, 'code':registercode, 'password':registerpassword},
                     function(data){
                         if (data.success){
                             alert(data.data);
@@ -429,7 +430,7 @@
                                   <use xlink:href="#icon-yonghuming1"></use>
                                 </svg>
                             </span>
-                            <input type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon6" id="name" />
+                            <input type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon6" id="registername" />
                         </div><br></br>
                         <div class="input-group input-group-lg">
                             <span class="input-group-addon" id="basic-addon5">
@@ -482,7 +483,7 @@
         </div>
     </div>
 
-    <div style="height:520px;background-size: cover;background-image: url('http://hbfile.b0.upaiyun.com/img/home/banner/600676e99ab1f9d0157af0d9f796b4040fdf03991020a3');opacity: 1;background-position: center 0px;">
+    <div th:style="'background: url(' + ${background.url} + ');height:520px;background-size: cover;opacity: 1;background-position: center 0px;'">
         <div style="text-align: center;font-size: 50px;color: #FFF;position: relative;top: 175px;font-weight: 100;">猫爪,  帮您找到您的天命猫</div>
         <div class="search bar5" style="position: relative;top: 190px;">
             <form>
@@ -491,11 +492,11 @@
                     <svg class="icon" aria-hidden="true" style="font-size: 28px;margin-left: 25px;margin-top: 9px;">
                         <use xlink:href="#icon-icon-copy-copy"></use>
                     </svg>
-                </button>W
+                </button>
             </form>
         </div>
         <div style="text-align: center;position: relative;top: 175px;font-size: 15px;">
-            <span style="color: #ddd">热门搜索：</span>W
+            <span style="color: #ddd">热门搜索：</span>
             <span>
                 <a style="color: #fff">花瓣认证设计师</a>&nbsp;&nbsp;
                 <a style="color: #fff">原创插画</a>&nbsp;&nbsp;
