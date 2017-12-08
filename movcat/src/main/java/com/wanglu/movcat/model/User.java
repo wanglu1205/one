@@ -30,7 +30,28 @@ public class User {
     //标签
     private String tag;
 
+    //性别
+    private String gender;
+
+    //省份
+    private String province;
+
+    //城市
+    private String city;
+
+    //openId
+    private String openId;
+
     public User() {
+    }
+
+    public User(String name, String imgUrl, String gender, String province, String city, String openId) {
+        this.name = name;
+        this.imgUrl = imgUrl;
+        this.gender = gender;
+        this.province = province;
+        this.city = city;
+        this.openId = openId;
     }
 
     public User(String name, String tel, String email, String password) {
@@ -96,6 +117,38 @@ public class User {
         this.tag = tag;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -106,6 +159,10 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", tag='" + tag + '\'' +
+                ", gender='" + gender + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", openId='" + openId + '\'' +
                 '}';
     }
 }

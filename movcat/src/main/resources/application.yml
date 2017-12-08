@@ -2,7 +2,7 @@ spring:
   #mysql配置
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://106.14.187.139:3306/movcat
+    url: jdbc:mysql://106.14.187.139:3306/movcat?useUnicode=true&amp;characterEncoding=utf8
     username: root
     password: wwl69810262
   jpa:
@@ -34,3 +34,16 @@ spring:
 server:
   port: 8080
 
+#aq登录
+qq:
+  login:
+    appID: 101420839
+    appKEY: eff4e7f658edc1b840ae008c68e7cf84
+    redirectURI: http://fei7837226.vicp.io:16523/qq/callback
+    accessTokenURL: https://graph.qq.com/oauth2.0/token
+    authorizeURL: https://graph.qq.com/oauth2.0/authorize
+    responseType: code
+    state: wanglu
+    grantType: authorization_code
+    getOpenIDURL: https://graph.qq.com/oauth2.0/me
+    getUserInfoURL: https://graph.qq.com/user/get_user_info

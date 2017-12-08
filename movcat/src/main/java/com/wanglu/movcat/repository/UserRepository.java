@@ -11,6 +11,8 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
     User findByPasswordAndTelOrEmail(String password, String tel, String email);
 
+    User findByOpenId (String openId);
+
     @Modifying
     @Query(value = "INSERT INTO user (tel, name, password) VALUES (?1, ?2, ?3)", nativeQuery = true)
     int saveTelUser(String tel, String name, String password);

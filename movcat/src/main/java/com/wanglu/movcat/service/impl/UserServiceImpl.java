@@ -45,7 +45,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User saveQqUser(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
     public User findOne(Integer id) {
         return userRepository.findOne(id);
+    }
+
+    @Override
+    public User findOpenId(String openId) {
+        return userRepository.findByOpenId(openId);
     }
 }
