@@ -424,9 +424,17 @@
                     <div class="modal-body">
                         <div style="text-align: center;color: rgba(0, 0, 0, 0.35);">——  使用手机号/邮箱注册猫爪  ——</div>
                         <div class="input-group input-group-lg" style="margin-top: 16px;">
-                            <span class="input-group-addon" id="basic-addon5">
+                            <span class="input-group-addon" id="basic-addon6">
                                 <svg class="icon" aria-hidden="true" style="font-size: 22px;">
                                   <use xlink:href="#icon-yonghuming1"></use>
+                                </svg>
+                            </span>
+                            <input type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon6" id="name" />
+                        </div><br></br>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="basic-addon5">
+                                <svg class="icon" aria-hidden="true" style="font-size: 22px;">
+                                  <use xlink:href="#icon-shoujihao"></use>
                                 </svg>
                             </span>
                             <input type="text" class="form-control" placeholder="手机号/邮箱" aria-describedby="basic-addon5" id="registertel" />
@@ -441,7 +449,7 @@
                         </div>
                         <button type="button" th:onclick="'javascript:sendCode(this)'" id="code"
                                 class="btn btn-primary" autocomplete="off" style="position:
-                                absolute;left: 73%;top: 32.2%;height: 46px;background-color: #f5ab90;border-color: rgba(0, 0, 0, 0.37);width: 106px;">
+                                absolute;left: 73%;top: 42.6%;height: 46px;background-color: #f5ab90;border-color: rgba(0, 0, 0, 0.37);width: 106px;">
                             发送验证码
                         </button>
                         <br></br>
