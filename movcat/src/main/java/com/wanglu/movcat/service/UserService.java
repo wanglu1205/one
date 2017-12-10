@@ -1,5 +1,6 @@
 package com.wanglu.movcat.service;
 
+import com.wanglu.movcat.model.Result;
 import com.wanglu.movcat.model.User;
 
 public interface UserService {
@@ -19,4 +20,7 @@ public interface UserService {
 
     //保存qq用户
     User saveQqUser(User user);
+
+    //上传
+    Result uoload(String image) throws Exception;
 }

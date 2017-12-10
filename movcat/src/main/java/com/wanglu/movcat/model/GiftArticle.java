@@ -35,6 +35,19 @@ public class GiftArticle {
     //创建时间
     private Date createTime;
 
+    public GiftArticle() {
+    }
+
+    public GiftArticle(String title, String imgUrl, Integer userId, Integer giftId, String details, String isShow, Date createTime) {
+        this.title = title;
+        this.imgUrl = imgUrl;
+        this.userId = userId;
+        this.giftId = giftId;
+        this.details = details;
+        this.isShow = isShow;
+        this.createTime = createTime;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -6,7 +6,6 @@
 	<groupId>com.wanglu</groupId>
 	<artifactId>movcat</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 
 	<name>movcat</name>
 	<description>A Website About Cats</description>
@@ -25,6 +24,13 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>com.qiniu</groupId>
+			<artifactId>qiniu-java-sdk</artifactId>
+			<version>7.1.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>

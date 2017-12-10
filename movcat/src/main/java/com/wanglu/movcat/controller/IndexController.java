@@ -61,12 +61,21 @@ public class IndexController {
     }
 
     /**
-     * 首页
+     * 详情页
      * @return
      */
     @GetMapping("/detail")
     public String detail(Model model) {
         return "/detail";
+    }
+
+    /**
+     * 搜索页
+     * @return
+     */
+    @GetMapping("/search")
+    public String search(Model model) {
+        return "/search";
     }
 
 }

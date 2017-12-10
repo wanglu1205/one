@@ -27,4 +27,9 @@ public class GiftArticleServiceImpl implements GiftArticleService{
     public GiftArticle findOne(Integer id) {
         return giftArticleRepository.findOne(id);
     }
+
+    @Override
+    public GiftArticle save(GiftArticle giftArticle) {
+        return giftArticleRepository.save(giftArticle);
+    }
 }

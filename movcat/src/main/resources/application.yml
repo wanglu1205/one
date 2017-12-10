@@ -32,14 +32,14 @@ spring:
 
 #端口
 server:
-  port: 8080
+  port: 80
 
 #aq登录
 qq:
   login:
     appID: 101420839
     appKEY: eff4e7f658edc1b840ae008c68e7cf84
-    redirectURI: http://fei7837226.vicp.io:16523/qq/callback
+    redirectURI: http://movcat.com/qq/callback
     accessTokenURL: https://graph.qq.com/oauth2.0/token
     authorizeURL: https://graph.qq.com/oauth2.0/authorize
     responseType: code

@@ -13,4 +13,7 @@ public interface GiftArticleService {
 
     //获取文章详情
     GiftArticle findOne(Integer id);
+
+    //保存文章
+    GiftArticle save(GiftArticle giftArticle);
 }
