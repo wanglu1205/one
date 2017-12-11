@@ -1,10 +1,9 @@
 package com.wanglu.movcat.interceptor;
 
-import com.wanglu.movcat.exception.MacroApiException;
+import com.wanglu.movcat.exception.UserNotLoginException;
 import com.wanglu.movcat.model.User;
 import com.wanglu.movcat.util.IpUtil;
 import com.wanglu.movcat.util.RedisTemplateUtil;
-import com.wanglu.movcat.util.ResultUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,9 +74,9 @@ public class WebLoginInterceptor implements HandlerInterceptor {
             return true;  
         }  
         else{
-            response.setStatus(405);
-            return false;
-        }  
+            //response.setStatus(405);
+            throw new UserNotLoginException("未登录");
+        }
     }
 
   

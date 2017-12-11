@@ -1,7 +1,10 @@
 package com.wanglu.movcat.service;
 
+import com.wanglu.movcat.model.GiftArticle;
 import com.wanglu.movcat.model.Result;
 import com.wanglu.movcat.model.User;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -23,4 +26,10 @@ public interface UserService {
 
     //上传
     Result uoload(String image) throws Exception;
+
+    //加入点赞列表
+    Result addPraiseList(Integer userId, Integer giftArticleId)throws Exception;
+
+    //加入点赞列表
+    List<GiftArticle> praiseList(Integer userId);
 }

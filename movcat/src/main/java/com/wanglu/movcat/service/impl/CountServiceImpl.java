@@ -36,11 +36,21 @@ public class CountServiceImpl implements CountService{
                     c.setTotalBrowsingCount(Integer.valueOf(String.valueOf(data.get(key, count.getValue()))));
                 }
             }else {
-                c.setCommentCount(0);
-                c.setPraiseCount(0);
-                c.setShareCount(0);
-                c.setTodayBrowsingCount(0);
-                c.setTotalBrowsingCount(0);
+                if (c.getCommentCount() == null){
+                    c.setCommentCount(0);
+                }
+                if (c.getPraiseCount() == null){
+                    c.setPraiseCount(0);
+                }
+                if (c.getShareCount() == null){
+                    c.setShareCount(0);
+                }
+                if (c.getTodayBrowsingCount() == null){
+                    c.setTodayBrowsingCount(0);
+                }
+                if (c.getTotalBrowsingCount() == null){
+                    c.setTotalBrowsingCount(0);
+                }
             }
         }
         return c;

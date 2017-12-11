@@ -36,6 +36,10 @@ public class GiftArticleDetailVo {
 
     private Integer shareCount;
 
+    private Integer todayBrowsingCount;
+
+    private Integer totalBrowsingCount;
+
     private Integer userId;
 
     private String userName;
@@ -47,7 +51,7 @@ public class GiftArticleDetailVo {
     public GiftArticleDetailVo() {
     }
 
-    public GiftArticleDetailVo(Integer giftArticleId, String giftArticleImgUrl, String giftArticleTitle, Date giftArticleCreateTime, String giftArticleDetails, Integer giftId, String giftName, String giftImgUrl, String giftvideoUrl, BigDecimal giftPrice, String giftIntro, String giftMallUrl, Integer commentCount, Integer praiseCount, Integer shareCount, Integer userId, String userName, String userImgUrl) {
+    public GiftArticleDetailVo(Integer giftArticleId, String giftArticleImgUrl, String giftArticleTitle, Date giftArticleCreateTime, String giftArticleDetails, Integer giftId, String giftName, String giftImgUrl, String giftvideoUrl, BigDecimal giftPrice, String giftIntro, String giftMallUrl, Integer commentCount, Integer praiseCount, Integer shareCount, Integer todayBrowsingCount, Integer totalBrowsingCount, Integer userId, String userName, String userImgUrl) {
         this.giftArticleId = giftArticleId;
         this.giftArticleImgUrl = giftArticleImgUrl;
         this.giftArticleTitle = giftArticleTitle;
@@ -63,12 +67,14 @@ public class GiftArticleDetailVo {
         this.commentCount = commentCount;
         this.praiseCount = praiseCount;
         this.shareCount = shareCount;
+        this.todayBrowsingCount = todayBrowsingCount;
+        this.totalBrowsingCount = totalBrowsingCount;
         this.userId = userId;
         this.userName = userName;
         this.userImgUrl = userImgUrl;
     }
 
-    public GiftArticleDetailVo(Integer giftArticleId, String giftArticleImgUrl, String giftArticleTitle, Date giftArticleCreateTime, String giftArticleDetails, Integer giftId, String giftName, String giftImgUrl, String giftvideoUrl, BigDecimal giftPrice, String giftIntro, String giftMallUrl, Integer commentCount, Integer praiseCount, Integer shareCount, Integer userId, String userName, String userImgUrl, List<CommentVo> commentVoList) {
+    public GiftArticleDetailVo(Integer giftArticleId, String giftArticleImgUrl, String giftArticleTitle, Date giftArticleCreateTime, String giftArticleDetails, Integer giftId, String giftName, String giftImgUrl, String giftvideoUrl, BigDecimal giftPrice, String giftIntro, String giftMallUrl, Integer commentCount, Integer praiseCount, Integer shareCount, Integer todayBrowsingCount, Integer totalBrowsingCount, Integer userId, String userName, String userImgUrl, List<CommentVo> commentVoList) {
         this.giftArticleId = giftArticleId;
         this.giftArticleImgUrl = giftArticleImgUrl;
         this.giftArticleTitle = giftArticleTitle;
@@ -84,6 +90,8 @@ public class GiftArticleDetailVo {
         this.commentCount = commentCount;
         this.praiseCount = praiseCount;
         this.shareCount = shareCount;
+        this.todayBrowsingCount = todayBrowsingCount;
+        this.totalBrowsingCount = totalBrowsingCount;
         this.userId = userId;
         this.userName = userName;
         this.userImgUrl = userImgUrl;
@@ -210,6 +218,22 @@ public class GiftArticleDetailVo {
         this.shareCount = shareCount;
     }
 
+    public Integer getTodayBrowsingCount() {
+        return todayBrowsingCount;
+    }
+
+    public void setTodayBrowsingCount(Integer todayBrowsingCount) {
+        this.todayBrowsingCount = todayBrowsingCount;
+    }
+
+    public Integer getTotalBrowsingCount() {
+        return totalBrowsingCount;
+    }
+
+    public void setTotalBrowsingCount(Integer totalBrowsingCount) {
+        this.totalBrowsingCount = totalBrowsingCount;
+    }
+
     public Integer getUserId() {
         return userId;
     }
@@ -242,7 +266,6 @@ public class GiftArticleDetailVo {
         this.commentVoList = commentVoList;
     }
 
-
     @Override
     public String toString() {
         return "GiftArticleDetailVo{" +
@@ -261,6 +284,8 @@ public class GiftArticleDetailVo {
                 ", commentCount=" + commentCount +
                 ", praiseCount=" + praiseCount +
                 ", shareCount=" + shareCount +
+                ", todayBrowsingCount=" + todayBrowsingCount +
+                ", totalBrowsingCount=" + totalBrowsingCount +
                 ", userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", userImgUrl='" + userImgUrl + '\'' +
