@@ -9,6 +9,8 @@ public class Result {
 
     private String msg;
 
+    private Integer code;
+
     private Object data;
 
     public boolean isSuccess() {
@@ -25,6 +27,14 @@ public class Result {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
     public Object getData() {

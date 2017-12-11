@@ -3,10 +3,11 @@ package com.wanglu.movcat.controller;
 import com.wanglu.movcat.model.GiftArticle;
 import com.wanglu.movcat.model.Result;
 import com.wanglu.movcat.model.User;
+import com.wanglu.movcat.service.CountService;
 import com.wanglu.movcat.service.GiftArticleService;
 import com.wanglu.movcat.service.UserService;
-import com.wanglu.movcat.util.Put64;
 import com.wanglu.movcat.util.ResultUtil;
+import com.wanglu.movcat.util.constant.CountEnum;
 import com.wanglu.movcat.util.constant.LocalConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.util.Date;
-import java.util.UUID;
 
 
 @Controller
@@ -33,6 +31,9 @@ public class UserController {
 
     @Autowired
     private GiftArticleService giftArticleService;
+
+    @Autowired
+    private CountService countService;
 
     /**
      * 去写文章页面
@@ -76,4 +77,16 @@ public class UserController {
         }
     }
 
+    /**
+     * 点赞
+     * @return
+     */
+    @PostMapping("/praise")
+    @ResponseBody
+    public Result praise(Integer id, HttpServletRequest request)throws Exception {
+        countService.incr(LocalConstant.GiftArticle, id, CountEnum.praiseCount.getValue());
+        User user = (User) request.getSession().getAttribute(LocalConstant.LOGIN_USER);
+        Result result = userService.addPraiseList(user.getId(), id);
+        return result;
+    }
 }

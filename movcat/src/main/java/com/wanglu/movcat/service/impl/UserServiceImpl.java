@@ -1,13 +1,18 @@
 package com.wanglu.movcat.service.impl;
 
+import com.wanglu.movcat.model.GiftArticle;
 import com.wanglu.movcat.model.Result;
 import com.wanglu.movcat.model.User;
 import com.wanglu.movcat.repository.UserRepository;
+import com.wanglu.movcat.service.GiftArticleService;
 import com.wanglu.movcat.service.UserService;
 import com.wanglu.movcat.util.AccountValidatorUtil;
 import com.wanglu.movcat.util.Put64;
+import com.wanglu.movcat.util.RedisTemplateUtil;
 import com.wanglu.movcat.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -16,7 +21,8 @@ import sun.misc.BASE64Decoder;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @Transactional
@@ -25,6 +31,11 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Autowired
+    private GiftArticleService giftArticleService;
 
     @Override
     public boolean findByTelOrEmail(String telOrEmail) {
@@ -111,6 +122,45 @@ public class UserServiceImpl implements UserService{
             throw new RuntimeException();
         }
         return ResultUtil.success(s);
+    }
+
+    @Override
+    public Result addPraiseList(Integer userId, Integer giftArticleId)throws Exception {
+        ZSetOperations data = RedisTemplateUtil.setRedisTemplate(redisTemplate).opsForZSet();
+        String key = "praise:" + userId;
+        Set set = data.range(key, 0, -1);
+        List<String> list = new ArrayList<String>(set);
+        for(String str: list){
+            if (giftArticleId == Integer.valueOf(str)){
+                return ResultUtil.error("已收藏过该商品");
+            }
+        }
+        Date newTime = new Date();
+        String time = "2017-09-13 00:00:00";
+        SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        Date lastTime = bartDateFormat.parse(time);
+        double l = (newTime.getTime() - lastTime.getTime()) / 1000;
+        Boolean b = data.add(key, String.valueOf(giftArticleId), l);
+        if (b){
+            return ResultUtil.success("分享成功");
+        }else {
+            return ResultUtil.success("分享失败");
+        }
+    }
+
+    @Override
+    public List<GiftArticle> praiseList(Integer userId) {
+        ZSetOperations data = RedisTemplateUtil.setRedisTemplate(redisTemplate).opsForZSet();
+        String key = "praise:" + userId;
+        Set set = data.range(key, 0, -1);
+        List<String> list = new ArrayList<String>(set);
+        List<GiftArticle> giftArticleList = new ArrayList<>();
+        for(String str: list){
+            GiftArticle giftArticle = giftArticleService.findOne(Integer.valueOf(str));
+            giftArticleList.add(giftArticle);
+            Collections.reverse(giftArticleList);
+        }
+        return giftArticleList;
     }
 
 

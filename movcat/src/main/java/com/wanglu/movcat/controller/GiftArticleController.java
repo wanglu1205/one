@@ -108,7 +108,7 @@ public class GiftArticleController {
      * @return
      */
     @GetMapping("/write")
-    public String write(Model model) {
+    public String write() {
         return "/write";
     }
 

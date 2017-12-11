@@ -1,6 +1,7 @@
 package com.wanglu.movcat;
 
 import com.alibaba.fastjson.JSON;
+import com.wanglu.movcat.model.GiftArticle;
 import com.wanglu.movcat.model.IdentifyingCode;
 import com.wanglu.movcat.model.User;
 import com.wanglu.movcat.service.CountService;
@@ -13,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -30,6 +33,13 @@ public class MovcatApplicationTests {
 	@Test
 	public void contextLoads() {
 
+	}
+
+	//用户点赞列表
+	@Test
+	public void praiseList() {
+		List<GiftArticle> giftArticleList = userService.praiseList(1);
+		System.out.println(giftArticleList);
 	}
 
 	//注册
