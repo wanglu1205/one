@@ -6,17 +6,15 @@ import com.wanglu.movcat.service.CommentService;
 import com.wanglu.movcat.service.CountService;
 import com.wanglu.movcat.service.GiftArticleService;
 import com.wanglu.movcat.service.UserService;
+import com.wanglu.movcat.util.constant.CountEnum;
 import com.wanglu.movcat.util.constant.LocalConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -38,6 +36,7 @@ public class GiftArticleController {
 
     @Autowired
     private CountService countService;
+
     /**
      * 文章详情
      * @return
@@ -96,8 +95,8 @@ public class GiftArticleController {
             giftArticleDetailVo.setCommentVoList(newCommentVoList);
             sonCommentVoList = new ArrayList();
         }
-
-
+        countService.incr(LocalConstant.GiftArticle, id, CountEnum.todayBrowsingCount.getValue());
+        countService.incr(LocalConstant.GiftArticle, id, CountEnum.totalBrowsingCount.getValue());
         model.addAttribute("giftArticleDetailVo", giftArticleDetailVo);
         return "/detail";
     }
