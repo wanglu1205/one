@@ -1,10 +1,5 @@
 package com.wanglu.movcat.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.Date;
-
 public class GiftArticleVo {
 
     private Integer giftArticleId;
@@ -19,6 +14,10 @@ public class GiftArticleVo {
 
     private Integer shareCount;
 
+    private Integer todayBrowsingCount;
+
+    private Integer totalBrowsingCount;
+
     private Integer userId;
 
     private String userName;
@@ -30,22 +29,26 @@ public class GiftArticleVo {
     public GiftArticleVo() {
     }
 
-    public GiftArticleVo(Integer giftArticleId, String giftArticleImgUrl, String giftArticleTitle, Integer commentCount, Integer praiseCount, Integer shareCount) {
+    public GiftArticleVo(Integer giftArticleId, String giftArticleImgUrl, String giftArticleTitle, Integer commentCount, Integer praiseCount, Integer shareCount, Integer todayBrowsingCount, Integer totalBrowsingCount) {
         this.giftArticleId = giftArticleId;
         this.giftArticleImgUrl = giftArticleImgUrl;
         this.giftArticleTitle = giftArticleTitle;
         this.commentCount = commentCount;
         this.praiseCount = praiseCount;
         this.shareCount = shareCount;
+        this.todayBrowsingCount = todayBrowsingCount;
+        this.totalBrowsingCount = totalBrowsingCount;
     }
 
-    public GiftArticleVo(Integer giftArticleId, String giftArticleImgUrl, String giftArticleTitle, Integer commentCount, Integer praiseCount, Integer shareCount, Integer userId, String userName, String userImgUrl, String commentContent) {
+    public GiftArticleVo(Integer giftArticleId, String giftArticleImgUrl, String giftArticleTitle, Integer commentCount, Integer praiseCount, Integer shareCount,  Integer todayBrowsingCount, Integer totalBrowsingCount, Integer userId, String userName, String userImgUrl, String commentContent) {
         this.giftArticleId = giftArticleId;
         this.giftArticleImgUrl = giftArticleImgUrl;
         this.giftArticleTitle = giftArticleTitle;
         this.commentCount = commentCount;
         this.praiseCount = praiseCount;
         this.shareCount = shareCount;
+        this.todayBrowsingCount = todayBrowsingCount;
+        this.totalBrowsingCount = totalBrowsingCount;
         this.userId = userId;
         this.userName = userName;
         this.userImgUrl = userImgUrl;
@@ -100,6 +103,22 @@ public class GiftArticleVo {
         this.shareCount = shareCount;
     }
 
+    public Integer getTodayBrowsingCount() {
+        return todayBrowsingCount;
+    }
+
+    public void setTodayBrowsingCount(Integer todayBrowsingCount) {
+        this.todayBrowsingCount = todayBrowsingCount;
+    }
+
+    public Integer getTotalBrowsingCount() {
+        return totalBrowsingCount;
+    }
+
+    public void setTotalBrowsingCount(Integer totalBrowsingCount) {
+        this.totalBrowsingCount = totalBrowsingCount;
+    }
+
     public Integer getUserId() {
         return userId;
     }
@@ -141,6 +160,8 @@ public class GiftArticleVo {
                 ", commentCount=" + commentCount +
                 ", praiseCount=" + praiseCount +
                 ", shareCount=" + shareCount +
+                ", todayBrowsingCount=" + todayBrowsingCount +
+                ", totalBrowsingCount=" + totalBrowsingCount +
                 ", userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", userImgUrl='" + userImgUrl + '\'' +

@@ -47,10 +47,12 @@ public class IndexController {
                 User user = userService.findOne(indexComment.getUserId());
                 giftArticleVo = new GiftArticleVo(giftArticle.getId(), giftArticle.getImgUrl(),
                         giftArticle.getTitle(), count.getCommentCount(), count.getPraiseCount(), count.getShareCount(),
+                        count.getTodayBrowsingCount(), count.getTotalBrowsingCount(),
                         user.getId(), user.getName(), user.getImgUrl(), indexComment.getContent());
             }else {
                 giftArticleVo = new GiftArticleVo(giftArticle.getId(), giftArticle.getImgUrl(),
-                        giftArticle.getTitle(), count.getCommentCount(), count.getPraiseCount(), count.getShareCount());
+                        giftArticle.getTitle(), count.getCommentCount(), count.getPraiseCount(), count.getShareCount(),
+                        count.getTodayBrowsingCount(), count.getTotalBrowsingCount());
             }
 
             giftArticleVoList.add(giftArticleVo);

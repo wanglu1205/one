@@ -54,6 +54,7 @@ public class GiftArticleController {
                 giftArticle.getCreateTime(), giftArticle.getDetails(), gift.getId(), gift.getName(),
                 gift.getImgUrl(), gift.getVideoUrl(), gift.getPrice(), gift.getIntro(),
                 gift.getMallUrl(), count.getCommentCount(), count.getPraiseCount(), count.getShareCount(),
+                count.getTodayBrowsingCount(), count.getTotalBrowsingCount(),
                 user.getId(), user.getName(), user.getImgUrl());
 
 
