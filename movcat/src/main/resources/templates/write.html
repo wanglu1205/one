@@ -76,7 +76,6 @@
     </style>
     <script>
         $(function(){
-
             //比较简洁，细节可自行完善
             $('#uploadSubmit').click(function () {
                 var data = new FormData($('#uploadForm')[0]);
@@ -334,7 +333,7 @@
         <header class="navbar navbar-static-top bs-docs-nav" id="top" style="border-color: rgba(226, 226, 226, 0.71);">
             <div class="container" style="width: 75%;">
                 <div class="navbar-header">
-                    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" style="border-color: #333;">
+                    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" style="border-color: #333;background-color: #fff;">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar" style="background-color: #333;"></span>
                         <span class="icon-bar" style="background-color: #333;"></span>
@@ -374,13 +373,21 @@
                     </ul>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="搜索..." style="border-radius: 100px;width: 160%;"/>
+                            <input type="text" class="form-control" placeholder="搜索..." style="width: 400px;"/>
                         </div>
-                        <svg class="icon" aria-hidden="true" style="font-size: 25px;position: relative;left: 78px;top: 4px;">
+                        <!--<svg class="icon" aria-hidden="true" style="font-size: 25px;position: relative;left: 78px;top: 4px;">
                             <use xlink:href="#icon-liwu-copy1"></use>
-                        </svg>
+                        </svg>-->
+                        <button type="submit" class="btn btn-default" style="padding: 5px 12px;">
+                            <svg class="icon" aria-hidden="true" style="font-size: 20px;">
+                                <use xlink:href="#icon-liwu-copy1"></use>
+                            </svg>
+                        </button>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a id="hide"></a>
+                        </li>
                         <li>
                             <svg class="icon" aria-hidden="true" style="font-size: 25px;position: absolute;left: -35px;top: 12px;">
                                 <use xlink:href="#icon-lingdang"></use>

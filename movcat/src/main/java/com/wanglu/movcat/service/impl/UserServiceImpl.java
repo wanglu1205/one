@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Result uoload(String image) throws Exception{
+    public Result upload(String image) throws Exception{
         if(StringUtils.isEmpty(image)){
             return null;
         }

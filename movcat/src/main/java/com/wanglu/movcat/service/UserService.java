@@ -25,7 +25,7 @@ public interface UserService {
     User saveQqUser(User user);
 
     //上传
-    Result uoload(String image) throws Exception;
+    Result upload(String image) throws Exception;
 
     //加入点赞列表
     Result addPraiseList(Integer userId, Integer giftArticleId)throws Exception;

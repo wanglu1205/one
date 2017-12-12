@@ -48,7 +48,7 @@ public class UserController {
     @PostMapping("/upload")
     @ResponseBody
     public Result uoload(String image) throws Exception{
-        return userService.uoload(image);
+        return userService.upload(image);
     }
 
     /**

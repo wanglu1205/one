@@ -23,7 +23,10 @@
                 viewportFactor : 0.4
             } );
             $(window).scroll(function() {
-                var x = document.documentElement.scrollTop;
+                var x = window.pageYOffset  //用于FF
+                    || document.documentElement.scrollTop
+                    || document.body.scrollTop
+                    || 0;
                 if (x > 200){
                     $("#top").css("background-color", "rgba(0, 0, 0, 0.51)");
                     $("#top").css("box-shadow", "0 0 4px rgba(0,0,0,.2)");
@@ -392,7 +395,7 @@
         <header class="navbar navbar-static-top bs-docs-nav" id="top" style="position: fixed;width: 100%;z-index: 200;">
             <div class="container" style="width: 75%;">
                 <div class="navbar-header">
-                    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" style="border-color: #333;">
+                    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" style="border-color: #333;background-color: #fff;">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar" style="background-color: #333;"></span>
                         <span class="icon-bar" style="background-color: #333;"></span>
@@ -403,10 +406,10 @@
                 <nav id="bs-navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#">首页</a>
+                            <a href="/" style="background-color: rgba(238, 238, 238, 0.49);">首页</a>
                         </li>
                         <li>
-                            <a href="#">发现</a>
+                            <a href="/search">发现</a>
                         </li>
                         <li class="active">
                             <a href="#">组件</a>
@@ -443,11 +446,14 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" th:if="${session.LOGIN_USER != null}">
-                        <!--<li>
+                        <li>
+                            <a id="hide"></a>
+                        </li>
+                        <li>
                             <svg class="icon" aria-hidden="true" style="font-size: 25px;position: absolute;left: -35px;top: 12px;">
                                 <use xlink:href="#icon-lingdang-copy"></use>
                             </svg>
-                        </li>-->
+                        </li>
 
                         <li class="dropdown">
                             <a style="padding-right: 10px;text-decoration: none;color: #fff;padding-top: 8px;padding-bottom: 8px;margin-top: -8px;"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img th:src="${session.LOGIN_USER.imgUrl}" style="margin-top: 7px;height: 35px;width: 35px;display: inline-block;border: 1px solid #ddd;border-radius: 50%;" /><span class="caret"></span></a>

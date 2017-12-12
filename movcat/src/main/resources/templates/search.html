@@ -7,9 +7,6 @@
     <link rel="stylesheet" type="text/css" href="../css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="../css/demo.css" />
     <link rel="stylesheet" type="text/css" href="../css/component.css" />
-    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css" />
-    <link href="../css/bootstrap-fileinput.css" rel="stylesheet" />
-    <link href="../dist/summernote.css" rel="stylesheet" />
     <script type="text/javascript" src="../js/iconfont.js"></script>
     <script src="../js/modernizr.custom.js"></script>
     <script src="../js/masonry.pkgd.min.js"></script>
@@ -18,15 +15,18 @@
     <script src="../js/colorfinder-1.1.js"></script>
     <script src="../js/gridScrollFx.js"></script>
     <script src="http://www.jq22.com/jquery/jquery-2.1.1.js"></script>
-    <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
-    <script src="../dist/summernote.js"></script>
-    <script src="../dist/lang/summernote-zh-CN.js"></script>    <!-- 中文-->
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-    <script src="../js/bootstrap-fileinput.js"></script>
     <style type="text/css">
+        #grid li{
+            width: 250px;
+        }
+        #grid li img{
+            width: 236px;
+        }
         .show-grid{
             width: 80%;
             margin: 0 auto;
+            background-color: #fff;
             box-shadow: 0 1px 1px rgb(146, 132, 132);
         }
         .show-grid [class^=col-] {
@@ -53,41 +53,23 @@
             fill: currentColor;
             overflow: hidden;
         }
-
+        .row img{
+            height: 154px;
+            width:213.72px;
+        }
+        .row .col-xs-6{
+            padding-right: 5px;
+            padding-left: 5px;
+        }
+        .thumbnail{
+            padding: 0;
+        }
     </style>
     <script>
         $(function(){
-
-            //比较简洁，细节可自行完善
-            $('#uploadSubmit').click(function () {
-                var data = new FormData($('#uploadForm')[0]);
-                $.ajax({
-                    url: 'xxx/xxx',
-                    type: 'POST',
-                    data: data,
-                    async: false,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        console.log(data);
-                        if(data.status){
-                            console.log('upload success');
-                        }else{
-                            console.log(data.message);
-                        }
-                    },
-                    error: function (data) {
-                        console.log(data.status);
-                    }
-                });
-            });
-
-            $('.summernote').summernote({
-                height: 200,
-                tabsize: 2,
-                lang: 'zh-CN'
-            });
+            new GridScrollFx( document.getElementById( 'grid' ), {
+                viewportFactor : 0.4
+            } );
         });
 
         function sendCode(obj) {
@@ -162,58 +144,68 @@
                 });
         }
 
-        //保存文章
-        function save() {
-            var details = $(".note-editable").html();
-            var imgUrl = $(".fileinput-preview").find("img").attr("src");
-            var title = $("#title").val();
-            if(details == ''){
-                $("#prompt").text("富文本内容不能为空");
-                return;
-            }
-            if(imgUrl == ''){
-                $("#prompt").text("请上传展示图");
-                return;
-            }
-            if(title == ''){
-                $("#prompt").text("请输入标题");
-                return;
-            }
-            $.post("/user/save",
-                {'title':title, 'details':details, 'imgUrl':imgUrl},
-                function(data){
+
+        //点赞
+        function praise(id, obj) {
+            $.ajax({
+                type:'POST',
+                url:'/user/praise',
+                data:{'id':id},
+                success:function(data){
                     if (data.success){
-                        window.location.href = "/";
+                        var praise = $(obj).find("span[id=praise]").text();
+                        var num = parseInt(praise) + 1;
+                        $(obj).find("span[id=praise]").text(num);
                     }else {
-                        $("#prompt").text(data.msg);
+                        if (data.code == 401){
+                            alert(data.msg);
+                        }
                     }
-                });
+                },
+            })
+        }
+
+        //去写文章页面
+        function towrite() {
+            $.ajax({
+                type:'GET',
+                url:'/user/write',
+                success:function(data){
+                    if(!data.success){
+                        if(data.code == 401){
+                            alert(data.msg);
+                            return;
+                        }
+                    }
+                    window.location.href = "/user/write";
+                },
+            })
         }
     </script>
 
 </head>
-<body style="height: 1501px;">
+<body style="background-color: rgba(243, 243, 243, 0.47);">
     <!--头-->
     <div>
 
-        <header class="navbar navbar-static-top bs-docs-nav" id="top" style="border-color: rgba(226, 226, 226, 0.71);">
+        <header class="navbar navbar-static-top bs-docs-nav" id="top" style="border-color: rgba(226, 226, 226, 0.71);background-color: #fff;">
             <div class="container" style="width: 75%;">
                 <div class="navbar-header">
-                    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+                    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" style="border-color: #333;background-color: #fff;">
                         <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                        <span class="icon-bar" style="background-color: #333;"></span>
+                        <span class="icon-bar" style="background-color: #333;"></span>
+                        <span class="icon-bar" style="background-color: #333;"></span>
                     </button>
                     <a href="../" class="navbar-brand" style="font-size: 28px;font-weight: 100;">奇物</a>
                 </div>
                 <nav id="bs-navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#">首页</a>
+                            <a href="/">首页</a>
                         </li>
                         <li>
-                            <a href="#">发现</a>
+                            <a href="/search" style="background-color: rgba(238, 238, 238, 0.49);">发现</a>
                         </li>
                         <li class="active">
                             <a href="#">组件</a>
@@ -239,13 +231,53 @@
                     </ul>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="搜索..." style="border-radius: 100px;width: 160%;"/>
+                            <input type="text" class="form-control" placeholder="搜索..." style="width: 400px;"/>
                         </div>
-                        <svg class="icon" aria-hidden="true" style="font-size: 25px;position: relative;left: 78px;top: 4px;">
+                        <!--<svg class="icon" aria-hidden="true" style="font-size: 25px;position: relative;left: 78px;top: 4px;">
                             <use xlink:href="#icon-liwu-copy1"></use>
-                        </svg>
+                        </svg>-->
+                        <button type="submit" class="btn btn-default" style="padding: 5px 12px;">
+                            <svg class="icon" aria-hidden="true" style="font-size: 20px;">
+                                <use xlink:href="#icon-liwu-copy1"></use>
+                            </svg>
+                        </button>
                     </form>
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right" th:if="${session.LOGIN_USER == null}">
+                        <li>
+                            <a style="color: #8e8e7f;" data-toggle="modal" data-target="#myModal">
+                                登录
+                            </a>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#myModal_1" style="color: rgba(255, 132, 111, 0.94);
+                                        width: 75px;
+                                        margin-left: 5px;
+                                        border-radius: 100px;
+                                        background-color: #fff;
+                                        border-color: rgba(255, 132, 111, 0.94);">
+                                注册
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" th:onclick="'javascript:towrite()'" class="btn btn-default navbar-btn" style="position: relative;
+                                        left: 2px;
+                                        color: #fff;
+                                        width: 90px;
+                                        margin-left: 5px;
+                                        border-radius: 100px;
+                                        background-color: #f55f5f;
+                                        border-color: #f55f5f;">
+                                <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-xiezuo-copy"></use>
+                                </svg>
+                                <span>写文章</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" th:if="${session.LOGIN_USER != null}">
+                        <li>
+                            <a id="hide"></a>
+                        </li>
                         <li>
                             <svg class="icon" aria-hidden="true" style="font-size: 25px;position: absolute;left: -35px;top: 12px;">
                                 <use xlink:href="#icon-lingdang"></use>
@@ -288,6 +320,21 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li>
+                            <button th:onclick="'javascript:towrite()'" type="button" class="btn btn-primary" style="position: relative;
+                                    top: 8px;
+                                    color: #fff;
+                                    width: 90px;
+                                    margin-left: 5px;
+                                    border-radius: 100px;
+                                    background-color: #f55f5f;
+                                    border-color: #f55f5f;">
+                                <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-xiezuo-copy"></use>
+                                </svg>
+                                <span>写文章</span>
+                            </button>
                         </li>
                     </ul>
                 </nav>
@@ -418,50 +465,6 @@
     </div>
 </div>
 
-    <!--<div class="wrapper" style="width: 1496px;">
-        <div id="category_guide"><div class="unit">
-            <a href="/favorite/web_app_icon/" rel="nofollow" data-id="web_app_icon" class="x">UI/UX</a>
-            <a href="/favorite/design/" rel="nofollow" data-id="design" class="x">平面</a>
-            <a href="/favorite/illustration/" rel="nofollow" data-id="illustration" class="x">插画/漫画</a>
-            <a href="/favorite/home/" rel="nofollow" data-id="home" class="x">家居/家装</a>
-            <a href="/favorite/apparel/" rel="nofollow" data-id="apparel" class="x">女装/搭配</a>
-            <a href="/favorite/men/" rel="nofollow" data-id="men" class="x">男士/风尚</a>
-            <a href="/favorite/wedding_events/" rel="nofollow" data-id="wedding_events" class="x">婚礼</a>
-        </div>
-            <div class="unit">
-                <a href="/favorite/industrial_design/" rel="nofollow" data-id="industrial_design" class="x">工业设计</a>
-                <a href="/favorite/photography/" rel="nofollow" data-id="photography" class="x">摄影</a>
-                <a href="/favorite/modeling_hair/" rel="nofollow" data-id="modeling_hair" class="x">造型/美妆</a>
-                <a href="/favorite/food_drink/" rel="nofollow" data-id="food_drink" class="x">美食</a>
-                <a href="/favorite/travel_places/" rel="nofollow" data-id="travel_places" class="x">旅行</a>
-                <a href="/favorite/diy_crafts/" rel="nofollow" data-id="diy_crafts" class="x">手工/布艺</a>
-            </div>
-            <div class="unit">
-                <a href="/favorite/fitness/" rel="nofollow" data-id="fitness" class="x">健身/舞蹈</a>
-                <a href="/favorite/kids/" rel="nofollow" data-id="kids" class="x">儿童</a>
-                <a href="/favorite/pets/" rel="nofollow" data-id="pets" class="x">宠物</a>
-                <a href="/favorite/quotes/" rel="nofollow" data-id="quotes" class="x">美图</a>
-                <a href="/favorite/people/" rel="nofollow" data-id="people" class="x">明星</a>
-                <a href="/favorite/beauty/" rel="nofollow" data-id="beauty" class="x">美女</a>
-                <a href="/favorite/desire/" rel="nofollow" data-id="desire" class="x">礼物</a>
-            </div><div class="unit"><a href="/favorite/geek/" rel="nofollow" data-id="geek" class="x">极客</a>
-                <a href="/favorite/anime/" rel="nofollow" data-id="anime" class="x">动漫</a>
-                <a href="/favorite/architecture/" rel="nofollow" data-id="architecture" class="x">建筑设计</a>
-                <a href="/favorite/art/" rel="nofollow" data-id="art" class="x">人文艺术</a>
-                <a href="/favorite/data_presentation/" rel="nofollow" data-id="data_presentation" class="x">数据图</a>
-                <a href="/favorite/games/" rel="nofollow" data-id="games" class="x">游戏</a>
-            </div>
-            <div class="unit last">
-                <a href="/favorite/cars_motorcycles/" rel="nofollow" data-id="cars_motorcycles" class="x">汽车/摩托</a>
-                <a href="/favorite/film_music_books/" rel="nofollow" data-id="film_music_books" class="x">电影/图书</a>
-                <a href="/favorite/tips/" rel="nofollow" data-id="tips" class="x">生活百科</a>
-                <a href="/favorite/education/" rel="nofollow" data-id="education" class="x">教育</a>
-                <a href="/favorite/sports/" rel="nofollow" data-id="sports" class="x">运动</a>
-                <a href="/favorite/funny/" rel="nofollow" data-id="funny" class="x">搞笑</a>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>-->
     <div class="row show-grid">
         <div class="col-md-3">
             <a href="/favorite/web_app_icon/" rel="nofollow" data-id="web_app_icon" class="x">UI/UX</a>
@@ -496,5 +499,96 @@
             <a href="/favorite/diy_crafts/" rel="nofollow" data-id="diy_crafts" class="x">手工/布艺</a>
         </div>
     </div>
+
+    <div class="row" style="max-width: 80%;margin: 15px auto;">
+        <div class="col-xs-6 col-md-2">
+            <a href="#" class="thumbnail">
+                <img src="http://hbimg-other.b0.upaiyun.com/img/promotion/a886655a813a1342d295ad51d981991bae1705ca1f86e" alt="" />
+            </a>
+        </div>
+        <div class="col-xs-6 col-md-2">
+            <a href="#" class="thumbnail">
+                <img src="http://hbimg-other.b0.upaiyun.com/img/promotion/ca69d29c6e407feb0455a9ecd49f3d8dc80178a78bd6" alt="" />
+            </a>
+        </div>
+        <div class="col-xs-6 col-md-2">
+            <a href="#" class="thumbnail">
+                <img src="http://pagead2.googlesyndication.com/simgad/8573399779390812097" alt="" />
+            </a>
+        </div>
+        <div class="col-xs-6 col-md-2">
+            <a href="#" class="thumbnail">
+                <img src="http://upyun.h800.com.cn/content/1510710736765.jpg" alt="" />
+            </a>
+        </div>
+        <div class="col-xs-6 col-md-2">
+            <a href="#" class="thumbnail">
+                <img src="http://liontest001.b0.upaiyun.com/content/1509002735222.jpg!content" alt="" />
+            </a>
+        </div>
+        <div class="col-xs-6 col-md-2">
+            <a href="#" class="thumbnail">
+                <img src="http://liontest001.b0.upaiyun.com/content/1509002902991.jpg!content" alt="" />
+            </a>
+        </div>
+    </div>
+    <section class="grid-wrap" style="max-width: 80%;">
+        <ul class="grid swipe-down" id="grid">
+            <li th:each="giftArticleVo : ${giftArticleVoList}">
+                <div style="position: relative;overflow: hidden;margin: 7px;box-shadow: 0 1px 1px rgb(146, 132, 132);">
+                    <a th:href="@{'/giftArticle/detail?id='+${giftArticleVo.giftArticleId}}">
+                        <img th:src="${giftArticleVo.giftArticleImgUrl}" alt="" />
+                        <!--<div class="collapse" id="collapseExample">
+                            <div class="well">
+                                ...
+                            </div>
+                        </div>-->
+                    </a>
+                    <div style="background-color: #fff;">
+                        <div style="border-bottom: 1px solid #F2F2F2;">
+                            <div style="padding: 15px;" th:text="${giftArticleVo.giftArticleTitle}"></div>
+                            <div style="padding: 0 15px 15px 15px;">
+                                <svg class="icon" aria-hidden="true" th:onclick="'javascript:openjudge()'" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                    <use xlink:href="#icon-wodefankui"></use>
+                                </svg>
+                                <span style="color: rgba(0, 0, 0, 0.31);" th:text="${giftArticleVo.commentCount}"></span>&nbsp;&nbsp;
+                                <a href="javacript:void(0);" th:onclick="'javascript:praise('+${giftArticleVo.giftArticleId}+',this)'" style="text-decoration: none;">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-jushoucang"></use>
+                                    </svg>
+                                    <span style="color: rgba(0, 0, 0, 0.31);" id="praise" th:text="${giftArticleVo.praiseCount}"></span>&nbsp;&nbsp;
+                                </a>
+                                <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-tubiao215"></use>
+                                </svg>
+                                <span style="color: rgba(0, 0, 0, 0.31);" th:text="${giftArticleVo.shareCount}"></span>&nbsp;&nbsp;
+                                <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-liulanliang1"></use>
+                                </svg>
+                                <span style="color: rgba(0, 0, 0, 0.31);" th:text="${giftArticleVo.totalBrowsingCount}"></span>
+                            </div>
+                        </div>
+                        <div th:if="${giftArticleVo.commentContent != null}" style="padding: 15px;border-bottom: 1px solid #F2F2F2;background-color: rgba(0, 0, 0, 0.02);display: block;min-height: 111px;" id="judgeText_1">
+                            <img th:src="${giftArticleVo.userImgUrl}" alt="" style="border: 1px solid rgba(33, 33, 33, 0.31);width: 35px;height: 35px;"/>
+                            <div style="margin-left: 45px;margin-top: -35px;max-width: 163px;word-wrap:break-word">
+                                <div style="color: rgba(232, 98, 98, 0.84);" th:text="${giftArticleVo.userName}"></div>
+                                <div th:text="${giftArticleVo.commentContent}"></div>
+                            </div>
+                        </div>
+                        <div style="padding: 15px;border-bottom: 1px solid #F2F2F2;background-color: rgba(0, 0, 0, 0.02);height: 111px;display: none;" id="judgeText">
+                            <img src="../img/11.jpg" alt="" style="border: 1px solid rgba(33, 33, 33, 0.31);width: 35px;height: 35px;"/>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" style="position: relative;left: 45px;top: -35px;width: 158px;height: 35px;"/>
+                            </div>
+                            <button type="button" class="btn btn-primary" data-toggle="button" essed="false" autocomplete="off" style="position: absolute;
+                    margin-left: 125px;margin-top: -25px;border-color: rgba(255, 39, 39, 0.79);background-color: rgba(255, 39, 39, 0.79);border-radius: 0;padding: 4px 10px;">
+                                添加评论
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
 </body>
 </html>

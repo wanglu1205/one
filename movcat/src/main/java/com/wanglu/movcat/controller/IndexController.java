@@ -77,6 +77,28 @@ public class IndexController {
      */
     @GetMapping("/search")
     public String search(Model model) {
+        List<GiftArticle> giftArticleList = giftArticleService.findByIsShow();
+        List<GiftArticleVo> giftArticleVoList = new ArrayList<>();
+        for (GiftArticle giftArticle:giftArticleList) {
+            Integer id = giftArticle.getId();
+            Count count = countService.get(LocalConstant.GiftArticle, id);
+            Comment indexComment = commentService.findFirstByIsIndexAndAndGiftArticleId(id);
+            GiftArticleVo giftArticleVo = null;
+            if (indexComment != null){
+                User user = userService.findOne(indexComment.getUserId());
+                giftArticleVo = new GiftArticleVo(giftArticle.getId(), giftArticle.getImgUrl(),
+                        giftArticle.getTitle(), count.getCommentCount(), count.getPraiseCount(), count.getShareCount(),
+                        count.getTodayBrowsingCount(), count.getTotalBrowsingCount(),
+                        user.getId(), user.getName(), user.getImgUrl(), indexComment.getContent());
+            }else {
+                giftArticleVo = new GiftArticleVo(giftArticle.getId(), giftArticle.getImgUrl(),
+                        giftArticle.getTitle(), count.getCommentCount(), count.getPraiseCount(), count.getShareCount(),
+                        count.getTodayBrowsingCount(), count.getTotalBrowsingCount());
+            }
+
+            giftArticleVoList.add(giftArticleVo);
+        }
+        model.addAttribute("giftArticleVoList", giftArticleVoList);
         return "/search";
     }
 
